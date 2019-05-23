@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    User findUserByUserNameAndPassword(@Param("userName") String userName, @Param("password") String password);
+    User findUserByUserNameAndPassword(@Param("account") String account, @Param("password") String password);
 
     void saveUser(User user);
 

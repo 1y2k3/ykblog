@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yk.mapper.UserMapper">
 	<select id="findUserByUserNameAndPassword" parameterType="com.yk.bean.User" resultType="com.yk.bean.User">
-		select * from user where user_name = #{userName} and password = #{password} ;
+		select * from user where account = #{account} and password = #{password} ;
 	</select>
 
 	<insert id="saveUser" parameterType="com.yk.bean.User">
-		insert into user (user_name, password, sex,real_name,phone,email) value (#{userName}, #{password}, #{sex},#{realName},#{phone},#{email});
+		insert into user (account, password, sex,nick_name,phone,email,create_date,create_time) value (#{account}, #{password}, #{sex},#{nickName},#{phone},#{email},now(),now());
 	</insert>
 
 	<select id="getAllUser"  resultType="com.yk.bean.User">

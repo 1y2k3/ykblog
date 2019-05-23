@@ -3,14 +3,14 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/newtable?useUnicode=true&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://182.92.231.239:3306/blog?useUnicode=true&autoReconnect=true&useSSL=false
     username: root
-    password: root
+    password: mimajiubugaosuni
   thymeleaf:
     prefix: classpath:/templates/
     cache: false
     suffix: .html
-    mode: HTML5
+    mode: LEGACYHTML5
     encoding: UTF-8
     content-type: text/html
   mvc:

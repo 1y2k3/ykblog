@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ResultEnum {
-    SUCCESS(1, "success"),
+    SUCCESS(0, "success"),
     SERVER_ERROR(500,"服务器异常"),
     NO_USER(1000,"查无此人");
 

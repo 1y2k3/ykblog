@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -19,8 +20,8 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 
 	@Override
-	public User login(String userName, String password) {
-		User user = userMapper.findUserByUserNameAndPassword(userName,password);
+	public User login(String account, String password) {
+		User user = userMapper.findUserByUserNameAndPassword(account,password);
 		if(user==null){
 			log.error("查无此人");
 			throw new GlobalException(ResultEnum.NO_USER);
@@ -29,12 +30,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void regiter(String userName, String password, Integer sex,String realName,String phone,String email) {
+	public void regiter(String account, String password, Integer sex,String nickName,String phone,String email) {
 		User user = new User();
-		user.setUserName(userName);
+		user.setAccount(account);
 		user.setPassword(password);
 		user.setSex(sex);
-		user.setRealName(realName);
+		user.setNickName(nickName);
 		user.setPhone(phone);
 		user.setEmail(email);
 		userMapper.saveUser(user);
@@ -43,9 +44,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findAllUser() {
 		List<User> userList = userMapper.getAllUser();
-		System.out.println("￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥");
-		System.out.println("userlist:"+userList);
-		System.out.println("￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥");
 		return userList;
 	}
 }

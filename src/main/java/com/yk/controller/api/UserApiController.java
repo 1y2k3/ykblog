@@ -21,26 +21,26 @@ public class UserApiController {
     /**
      * 登录接口
      *
-     * @param userName
+     * @param account
      * @param password
      * @return
      */
     @PostMapping("/login")
-    public ResultVO<User> login(String userName, String password) {
-        return success(userService.login(userName,password));
+    public ResultVO<User> login(String account, String password) {
+        return success(userService.login(account,password));
     }
 
 
     /**
      * 注册接口
-     * @param userName
+     * @param account
      * @param password
      * @param sex
      * @return
      */
     @PostMapping("/register")
-    public ResultVO register(String userName, String password, Integer sex,String realName,String phone,String email) {
-        userService.regiter(userName,password,sex,realName,phone,email);
+    public ResultVO register(String account, String password, Integer sex,String nickName,String phone,String email) {
+        userService.regiter(account,password,sex,nickName,phone,email);
         return success();
     }
 }

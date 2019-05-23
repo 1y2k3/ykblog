@@ -2,6 +2,8 @@ package com.yk.bean;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class User {
 
@@ -9,7 +11,7 @@ public class User {
     /**
      * 用户名
      */
-    private String userName;
+    private String account;
     /**
      * 密码
      */
@@ -21,7 +23,7 @@ public class User {
     /**
      * 真实姓名
      */
-    private String realName;
+    private String nickName;
     /**
      * 手机号
      */
@@ -30,4 +32,9 @@ public class User {
      * 邮箱
      */
     private String email;
+
+    private Date createDate;
+
+    private Date createTime;
+
 }
