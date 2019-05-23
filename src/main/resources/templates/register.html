@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>用户注册</title>
+    <style type="text/css" rel="stylesheet">
+        .wrap {
+            margin: 0 auto;
+            width: 500px;
+        }
+        td{
+            border: 1px #ddd solid;
+        }
+    </style>
+</head>
+<script type="text/javascript" src="/js/jquery.min.js"/>
+<body>
+<script type="text/javascript">
+    function login() {
+        window.location.href = "./login"
+    }
+
+    function register() {
+        var userName = $("#userName").val();
+        var password = $("#password").val();
+        var sex = $("input:radio:checked").val();
+        var realName = $("#realName").val();
+        var phone = $("#phone").val();
+        var email = $("#email").val();
+        var data = {};
+        data.userName = userName;
+        data.password = password;
+        data.sex = sex;
+        data.realName = realName;
+        data.phone = phone;
+        data.email = email;
+        console.log(data)
+        $.ajax({
+            type: "POST",
+            url: "/api/user/register",
+            dataType: "json",
+            data: data,
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+                console.log(data)
+
+                alert("注册成功")
+            },
+            error: function (data) {
+                console.log(data)
+                alert("注册失败");
+            }
+        });
+    }
+</script>
+<div class="wrap">
+    <h1>用户注册</h1>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户名: <input type="text" id="userName" name="userName"/></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码: <input type="text" id="password" name="password"/></p>
+    <p>&nbsp;确认密码: <input type="text" name="password2"/></p>
+    <p>&nbsp;真实姓名: <input type="text" id="realName" name="realName"/></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别：
+        <label><input name="sex" type="radio" value="1" checked="checked"/>男</label>
+        <label><input name="sex" type="radio" value="0"/>女 </label>
+    </p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电话: <input type="text" id="phone" name="phone"/></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;邮箱: <input type="text" id="email" name="email"/></p>
+
+    <input type="button" onclick="login()" value="去登陆"/>
+    <input type="button" onclick="register()" value="注册"/>
+</div>
+</body>
+</html>

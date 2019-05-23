@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>用户列表</title>
+    <style type="text/css" rel="stylesheet">
+        .wrap {
+            margin: 0 auto;
+        }
+
+        td {
+            border: 1px #ddd solid;
+        }
+    </style>
+</head>
+<script type="text/javascript" src="/js/jquery.min.js"/>
+<body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        getAllUser();
+    })
+
+    function getAllUser() {
+        $.ajax({
+            type: "POST",
+            url: "/api/web/index",
+            dataType: "json",
+            success: function (result) {
+                console.log(result)
+                var userArray = result.data;
+                var userStr = "";
+                console.log(userArray);
+                /*<![CDATA[*/
+                for (var i = 0; i < userArray.length; i++) {
+                    userStr += "<tr>"
+                    userStr += "<td>" + userArray[i].userName + "</td><td>"
+                    userStr += userArray[i].realName + "</td><td>"
+                    userStr += userArray[i].sex + "</td><td>"
+                    userStr += userArray[i].phone + "</td><td>"
+                    userStr += userArray[i].email + "</td<td>"
+                    userStr += userArray[i].id + "</td><td><a onclick=' ("+userArray[i].id+")'>删除</a>"+"<a onclick='update("+userArray[i].id+")'>修改</a>"+"</td>"
+                    userStr += "</tr>"
+                }
+                /*]]>*/
+                $("#userList").append(userStr);
+
+            },
+            error: function (data) {
+                console.log(data)
+                alert("服务器错误");
+            }
+        });
+
+    }
+</script>
+<div class="wrap">
+    <table border="1" id="userList">
+        <tr>
+            <td>用户名</td>
+            <td>真实姓名</td>
+            <td>性别</td>
+            <td>手机号</td>
+            <td>邮箱</td>
+            <td>功能</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

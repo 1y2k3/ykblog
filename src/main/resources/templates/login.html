@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>用户登录</title>
+    <style type="text/css" rel="stylesheet">
+        .wrap {
+            margin: 0 auto;
+            width: 400px;
+        }
+    </style>
+</head>
+<script type="text/javascript" src="/js/jquery.min.js"/>
+<body>
+<script type="text/javascript">
+
+    function login() {
+        var userName = $("#userName").val();
+        var password = $("#password").val();
+        var data = {};
+        data.userName = userName;
+        data.password = password;
+        $.ajax({
+            type: "POST",
+            url: "/api/user/login",
+            dataType: "json",
+            data: data,
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+                if(data.code==1){
+                    alert("登录成功");
+                    window.location.href = "/web/index";
+                }else{
+                    alert("登录失败");
+                }
+            },
+            error: function (err) {
+                alert("服务器错误"+err);
+            }
+        });
+
+    }
+    function register() {
+        window.location.href = "./register";
+    }
+</script>
+<div class="wrap">
+    <h1>用户登录</h1>
+    <p>用户名: <input type="text" id="userName" name="userName"/></p>
+    <p>密&nbsp;&nbsp;&nbsp;码: <input type="password" id="password" name="password"/></p>
+    <button onclick="login()">登录</button>&nbsp;&nbsp;&nbsp;
+    <input type="button" onclick="register()" value="注册"/>
+</div>
+</body>
+</html>
