@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8"/>
     <title>用户列表</title>
-<link rel="stylesheet" href="/layui/css/layui.css" />
+    <link rel="stylesheet" href="/layui/css/layui.css"/>
 </head>
 <script src="/layui/layui.js"></script>
-
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo">博客后台管理系统</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                    <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
-                    闫康
+                <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
+                     class="layui-nav-img">
+                闫康
             </li>
             <li class="layui-nav-item"><a href="/web/user/login">注销</a></li>
             <span class="layui-nav-bar" style="width: 0px; left: 0px; opacity: 0;"></span></ul>
@@ -39,51 +39,62 @@
     </div>
 
     <div class="layui-body">
-        <div style="padding: 15px;">
-            <table class="layui-hide" id="test"></table>
+        <div style="padding-left: 10px;">
+            <table class="layui-hide" id="test" lay-filter="test"></table>
         </div>
     </div>
 
     <div class="layui-footer">
         <!-- 底部固定区域 -->
-        © layui.com - 底部固定区域
+        本站只供学习与交流
     </div>
 </div>
-<script src="//res.layui.com/layui/src/layui.js?t=1554901097999" charset="utf-8"></script>
-<script>
-    //JavaScript代码区域
-    layui.use('element', function(){
-        var element = layui.element;
-
-    });
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="save">保存</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script>
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?d214947968792b839fd669a4decaaffc";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-
-
-
-<script>
-    layui.use('table', function(){
+    layui.use('table', function () {
         var table = layui.table;
         table.render({
-            elem: '#test'
-            ,url:'/api/index'
-            ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-            ,cols: [[
-                {field:'id', width:80, title: 'ID', sort: true}
-                ,{field:'account', width:80, title: '账号'}
-                ,{field:'nickName', width:80, title: '昵称'}
-                ,{field:'sex', width:80, title: '性别', sort: true}
-                ,{field:'phone', width:80, title: '手机号'}
-                ,{field:'email', title: '邮箱', width: '30%', minWidth: 100}
-            ]]
+            elem: '#test',
+            url: '/api/index',
+            toolbar: '#toolbarDemo',
+            cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增,
+            cols: [[
+                {field: 'id', width: 80, title: 'ID', sort: true},
+                {field: 'account', width: 100, title: '账号', edit:'text',sort: true},
+                {field: 'nickName', width: 120, title: '昵称',edit:'text', sort: true},
+                {
+                    field: 'sex', width: 80, title: '性别', edit:'text',sort: true, templet: function (d) {
+                        if (d.sex == 1) {
+                            return "男";
+                        } else {
+                            return "女";
+                        }
+                    }
+                },
+                {field: 'phone', width: 120, title: '手机号',edit:'text', sort: true},
+                {field: 'email', title: '邮箱',edit:'text', sort: true},
+                {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+            ]],
+            page: true
+        });
+        //监听行工具事件
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            console.log(obj);
+            if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    //ajax 删除数据
+
+                    layer.close(index);
+                });
+            } else if (obj.event === 'save') {
+                //ajax 保存数据
+                layer.alert("要保存的数据为:"+JSON.stringify(data))
+            }
         });
     });
 </script>
