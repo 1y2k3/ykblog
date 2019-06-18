@@ -58,4 +58,13 @@ public class AritcleServiceImpl implements AritcleService {
 
         return article;
     }
+
+    @Override
+    public void updateArticle(Integer id,String title,String content) {
+        Article article = new Article();
+        article.setId(id);
+        article.setTitle(title);
+        article.setContent(content);
+        articleMapper.updateArticle(article);
+    }
 }

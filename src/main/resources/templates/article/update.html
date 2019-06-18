@@ -47,25 +47,65 @@
 <script src="/layui/layui.js"></script>
 <script>
     var articleId = $("#articleId").val();
-    $.ajax({
-        type: "get",
-        url: "/api/article/show?id=" + articleId,
-        success: function (data) {
-            $("#titles").val(data.title);
 
-        },
-        error: function (data) {
-        }
-    });
+    $("document").ready(function () {
+        $.ajax({
+            type: "get",
+            url: "/api/article/show?id=" + articleId,
+            success: function (obj) {
+                $("#titles").val(obj.data.title);
+                $("#demo").val(obj.data.content);
+            },
+            error: function (data) {
+            }
+        });
 
-
-    layui.use(['layedit'], function () {
-        var layedit = layui.layedit;
-        var index = layedit.build('demo'); //建立编辑器
-        layedit.setContent(index, "你好");
+    })
 
 
-    });
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form;
+        var index;
+        var layedit;
+        layui.use('layedit', function () {
+            layedit = layui.layedit;
+            layedit.set({
+                uploadImage: {
+                    url: '/api/article/uploadImage' //接口url
+                    , type: 'POST' //默认post
+                }
+            });
+//注意：layedit.set 一定要放在 build 前面，否则配置全局接口将无效。
+            index = layedit.build('demo'); //建立编辑器
+        });
+        form.on('submit(demo1)', function (data) {
+
+            var title = data.field.title;
+            console.log(layedit.getContent(index))
+
+            var data1 = {};
+            data1.id = articleId;
+            data1.title = title;
+            data1.content = layedit.getContent(index);
+
+            console.log(data1)
+
+            $.ajax({
+                type: "POST",
+                url: "/api/article/update",
+                dataType: "json",
+                data: data1,
+                contentType: "application/x-www-form-urlencoded",
+                success: function (data) {
+                    alert("修改成功")
+                },
+                error: function (data) {
+                    alert("修改失败");
+                }
+            });
+            return false;
+        });
+    })
 </script>
 </body>
 </html>

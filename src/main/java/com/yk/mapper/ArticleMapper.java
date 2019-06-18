@@ -19,4 +19,6 @@ public interface ArticleMapper {
 
     Article findArticleById(Integer id);
 
+    void updateArticle(Article article);
+
 }

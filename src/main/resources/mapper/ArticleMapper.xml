@@ -18,4 +18,10 @@
         select * from article where id = #{id};
     </select>
 
+    <update id="updateArticle" parameterType = "com.yk.bean.Article">
+        update article
+        set title = #{title},content = #{content}
+        where id = #{id};
+    </update>
+
 </mapper>

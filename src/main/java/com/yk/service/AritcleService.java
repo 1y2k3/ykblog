@@ -16,4 +16,6 @@ public interface AritcleService {
     void deleteArticle(Integer id);
 
     Article showArticle(Integer id);
+
+    void updateArticle(Integer id,String title,String content);
 }

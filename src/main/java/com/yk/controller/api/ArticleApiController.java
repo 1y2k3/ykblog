@@ -86,12 +86,24 @@ public class ArticleApiController {
     }
 
     /**
-     *
+     * 展示要修改的文章接口
      * @param id
      * @return
      */
     @GetMapping("/show")
     public ResultVO showArticle(Integer id) {
         return success(aritcleService.showArticle(id));
+    }
+
+    /**
+     * 修改接口
+     * @param title
+     * @param content
+     * @return
+     */
+    @PostMapping("/update")
+    public ResultVO updateArticle(Integer id,String title,String content) {
+        aritcleService.updateArticle(id,title,content);
+        return success();
     }
 }
