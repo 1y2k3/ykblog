@@ -1,11 +1,12 @@
 server:
   port: 8080
+web.upload-path: /Users/chaizi/Desktop/
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://182.92.231.239:3306/blog?useUnicode=true&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://localhost/newtable?useUnicode=true&autoReconnect=true&useSSL=false
     username: root
-    password: mimajiubugaosuni
+    password: root
   thymeleaf:
     prefix: classpath:/templates/
     cache: false
@@ -15,6 +16,8 @@ spring:
     content-type: text/html
   mvc:
     static-path-pattern: /**
+    static-locations: file:${web.upload-path},classpath:/templates/
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.yk.bean

@@ -2,10 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>用户列表</title>
+    <title>博客后台</title>
     <link rel="stylesheet" href="/layui/css/layui.css"/>
 </head>
 <script src="/layui/layui.js"></script>
+<script src="/js/jquery.min.js"></script>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
@@ -16,7 +17,7 @@
                      class="layui-nav-img">
                 闫康
             </li>
-            <li class="layui-nav-item"><a href="/web/user/login">注销</a></li>
+            <li class="layui-nav-item"><a onclick="logout()">注销</a></li>
             <span class="layui-nav-bar" style="width: 0px; left: 0px; opacity: 0;"></span></ul>
     </div>
 
@@ -26,22 +27,26 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">用户管理<span class="layui-nav-more"></span></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">用户列表</a></dd>
+                        <dd><a href="javascript:;" onclick="swhichHtml(2)">用户列表</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="">权限管理</a>
                 </li>
-                <li class="layui-nav-item"><a href="">文章管理</a></li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="">文章管理<span class="layui-nav-more"></span></a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" onclick="swhichHtml(1)">文章列表</a></dd>
+                        <dd><a href="javascript:;" onclick="swhichHtml(3)">添加文章</a></dd>
+                    </dl>
+                </li>
                 <li class="layui-nav-item"><a href="">系统管理</a></li>
                 <span class="layui-nav-bar"></span></ul>
         </div>
     </div>
 
     <div class="layui-body">
-        <div style="padding-left: 10px;">
-            <table class="layui-hide" id="test" lay-filter="test"></table>
-        </div>
+       <iframe id="myiframe" src="/web/user/list" width="100%" height="100%" />
     </div>
 
     <div class="layui-footer">
@@ -54,49 +59,37 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script>
-    layui.use('table', function () {
-        var table = layui.table;
-        table.render({
-            elem: '#test',
-            url: '/api/index',
-            toolbar: '#toolbarDemo',
-            cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增,
-            cols: [[
-                {field: 'id', width: 80, title: 'ID', sort: true},
-                {field: 'account', width: 100, title: '账号', edit:'text',sort: true},
-                {field: 'nickName', width: 120, title: '昵称',edit:'text', sort: true},
-                {
-                    field: 'sex', width: 80, title: '性别', edit:'text',sort: true, templet: function (d) {
-                        if (d.sex == 1) {
-                            return "男";
-                        } else {
-                            return "女";
-                        }
-                    }
-                },
-                {field: 'phone', width: 120, title: '手机号',edit:'text', sort: true},
-                {field: 'email', title: '邮箱',edit:'text', sort: true},
-                {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
-            ]],
-            page: true
-        });
-        //监听行工具事件
-        table.on('tool(test)', function (obj) {
-            var data = obj.data;
-            console.log(obj);
-            if (obj.event === 'del') {
-                layer.confirm('真的删除行么', function (index) {
-                    obj.del();
-                    //ajax 删除数据
-
-                    layer.close(index);
-                });
-            } else if (obj.event === 'save') {
-                //ajax 保存数据
-                layer.alert("要保存的数据为:"+JSON.stringify(data))
+    function logout() {
+        $.ajax({
+            type: "POST",
+            url: "/api/logout",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+                console.log(data)
+                window.location.href = "./login";
+            },
+            error: function (data) {
             }
         });
-    });
+    };
+
+    function swhichHtml(index) {
+        switch (index){
+            case 1: {
+                $("#myiframe").attr("src","/web/article/list");
+                break;
+            }
+            case 2:{
+                $("#myiframe").attr("src","/web/user/list");
+                break;
+            }case 3:{
+            $("#myiframe").attr("src","/web/article/add");
+            break;
+        }
+        }
+
+    }
 </script>
 </body>
 </html>

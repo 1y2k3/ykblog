@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -20,8 +20,9 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 
 	@Override
-	public User login(String account, String password) {
+	public User login(String account, String password, HttpSession session) {
 		User user = userMapper.findUserByUserNameAndPassword(account,password);
+		session.setAttribute("user",user);
 		if(user==null){
 			log.error("查无此人");
 			throw new GlobalException(ResultEnum.NO_USER);
@@ -45,5 +46,22 @@ public class UserServiceImpl implements UserService {
 	public List<User> findAllUser() {
 		List<User> userList = userMapper.getAllUser();
 		return userList;
+	}
+
+	@Override
+	public void deleteUserOne(Integer id) {
+		userMapper.deleteUser(id);
+	}
+
+	@Override
+	public void updateMessage(Integer id,String account, Integer sex, String nickName, String phone, String email) {
+		User user = new User();
+		user.setId(id);
+		user.setAccount(account);
+		user.setSex(sex);
+		user.setNickName(nickName);
+		user.setPhone(phone);
+		user.setEmail(email);
+		userMapper.updateUser(user);
 	}
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yk.mapper.ArticleMapper">
+    <select id="getAllArticle" resultType="com.yk.bean.Article">
+        select id,title,content,user_id,create_date,DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%s") create_time,read_count from article;
+    </select>
+
+    <insert id="saveArticle" parameterType="com.yk.bean.Article">
+		insert into article (title, content, user_id,create_date,create_time,read_count) value (#{title}, #{content}, #{userId},now(),now(),#{readCount});
+	</insert>
+
+    <delete id="deleteArticle" >
+        delete
+        from article
+        where id = #{id};
+    </delete>
+    <select id="findArticleById" parameterType = "java.lang.Integer" resultType="com.yk.bean.Article">
+        select * from article where id = #{id};
+    </select>
+
+</mapper>

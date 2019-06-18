@@ -14,7 +14,7 @@ public class ResponseUtil{
     public static ResultVO error(ResultEnum resultEnum){
         ResultVO resultVO = new ResultVO();
         resultVO.setCode(resultEnum.getCode());
-        resultVO.setErrMsg(resultEnum.getErrMsg());
+        resultVO.setMsg(resultEnum.getErrMsg());
         return resultVO;
     }
 
@@ -27,7 +27,7 @@ public class ResponseUtil{
     public static ResultVO error(int code ,String errMsg){
         ResultVO resultVO = new ResultVO();
         resultVO.setCode(code);
-        resultVO.setErrMsg(errMsg);
+        resultVO.setMsg(errMsg);
         return resultVO;
     }
 
@@ -39,7 +39,7 @@ public class ResponseUtil{
     public static ResultVO success(Object data){
         ResultVO resultVO = new ResultVO();
         resultVO.setCode(ResultEnum.SUCCESS.getCode());
-        resultVO.setErrMsg(ResultEnum.SUCCESS.getErrMsg());
+        resultVO.setMsg(ResultEnum.SUCCESS.getErrMsg());
         resultVO.setData(data);
         return resultVO;
     }
@@ -51,7 +51,7 @@ public class ResponseUtil{
     public static ResultVO success(){
         ResultVO resultVO = new ResultVO();
         resultVO.setCode(ResultEnum.SUCCESS.getCode());
-        resultVO.setErrMsg(ResultEnum.SUCCESS.getErrMsg());
+        resultVO.setMsg(ResultEnum.SUCCESS.getErrMsg());
         return resultVO;
     }
 }

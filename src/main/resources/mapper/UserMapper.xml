@@ -19,4 +19,16 @@
         <include refid="baseField"/>
         from user;
     </select>
+
+    <delete id="deleteUser" >
+        delete
+        from user
+        where id = #{id};
+    </delete>
+
+    <update id="updateUser" parameterType="com.yk.bean.User">
+        update user
+        set account = #{account},nick_name = #{nickName},sex = #{sex},phone = #{phone},email = #{email}
+        where id = #{id};
+    </update>
 </mapper>

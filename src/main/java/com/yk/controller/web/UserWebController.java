@@ -27,4 +27,14 @@ public class UserWebController {
     public String register(){
         return "register";
     }
+
+
+    /**
+     * 返回用户列表页面
+     * @return
+     */
+    @GetMapping("/list")
+    public String userList(){
+        return "user/list";
+    }
 }

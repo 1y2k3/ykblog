@@ -15,4 +15,8 @@ public interface UserMapper {
     void saveUser(User user);
 
     List<User> getAllUser();
+
+    void deleteUser(Integer id);
+
+    void updateUser(User user);
 }
