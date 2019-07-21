@@ -35,6 +35,10 @@
                 {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
             ]],
             page: true
+            // layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'],
+            // groups: 1 ,//只显示 1 个连续页码
+            // last: false ,//不显示首页
+            // first: false //不显示尾页
         });
         //监听行工具事件
         table.on('tool(test)', function (obj) {
@@ -64,25 +68,7 @@
                 });
             } else if (obj.event === 'update') {
                 window.location.href = "./update?id=" + data.id;
-                //ajax 保存数据
-                // $.ajax({
-                //     type: "POST",
-                //     url: "/api/user/update",
-                //     dataType: "json",
-                //     data:data,
-                //     contentType: "application/x-www-form-urlencoded",
-                //     success: function (data) {
-                //         if(data.code == 0){
-                //             layer.msg("保存成功")
-                //         }else{
-                //             layer.msg("保存失败")
-                //         }
-                //
-                //     },
-                //     error: function (data) {
-                //         layer.msg("服务器异常");
-                //     }
-                // });
+
             }
         });
     });

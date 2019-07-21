@@ -4,7 +4,7 @@ uploadPath: /Users/chaizi/Desktop/
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost/newtable?useUnicode=true&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/newtable?useUnicode=true&autoReconnect=true&useSSL=false
     username: root
     password: root
   thymeleaf:
